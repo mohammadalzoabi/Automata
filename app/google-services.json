@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "424389414587",
+    "project_id": "automata-4ffc5",
+    "storage_bucket": "automata-4ffc5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:424389414587:android:84c8a33890fe5dc01e639e",
+        "android_client_info": {
+          "package_name": "com.example.automata"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "424389414587-cta6biiv8ck7bikt6g99i9st1f97g9ku.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbCpr37VNp1CRfB-u9AtMsbrURDcBjeuk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "424389414587-cta6biiv8ck7bikt6g99i9st1f97g9ku.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
