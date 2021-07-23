@@ -50,7 +50,6 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         }
     }
 
-
     SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     SearchView searchView;
