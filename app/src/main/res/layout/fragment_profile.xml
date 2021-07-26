@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:id="@+id/swipeRefresh2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="62dp">
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/profileBackgroundLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -12,7 +24,7 @@
         android:layout_height="205dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/circularbordershape"
         android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +56,7 @@
         android:layout_height="135dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="324dp"
         android:background="@drawable/bio_drawable"
         android:elevation="10dp"
         app:layout_constraintCircleRadius="5dp"
@@ -65,10 +77,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:fontFamily="@font/roboto"
                 android:hint="Enter your bio..."
                 android:maxLength="200"
                 android:padding="10dp"
                 android:textSize="18sp" />
+
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
 
@@ -87,7 +101,7 @@
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_marginStart="178dp"
-            android:layout_marginTop="246dp"
+            android:layout_marginTop="196dp"
             android:layout_marginEnd="178dp"
             android:backgroundTint="@color/lightRed"
             android:focusable="true"
@@ -102,7 +116,7 @@
             android:id="@+id/changeBioButton"
             android:layout_width="55dp"
             android:layout_height="55dp"
-            android:layout_marginTop="458dp"
+            android:layout_marginTop="430dp"
             android:backgroundTint="@color/lightRed"
             app:cornerRadius="360dp"
             app:icon="@drawable/ic_edit"
@@ -116,25 +130,10 @@
             android:id="@+id/bioTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="310dp"
+            android:layout_marginTop="280dp"
             android:fontFamily="@font/roboto_light"
             android:text="Bio"
             android:textAllCaps="false"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/profileUsername"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:fontFamily="@font/roboto"
-            android:text="CurrentUserUsername"
-            android:textAllCaps="true"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -234,4 +233,31 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewProfile"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardBackgroundColor="?android:attr/colorAccent"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toTopOf="@id/swipeRefresh2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/profileUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/roboto"
+            android:text="CurrentUserUsername"
+            android:textAllCaps="true"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

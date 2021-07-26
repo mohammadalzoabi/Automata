@@ -13,34 +13,55 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <application
-        android:configChanges="orientation|keyboardHidden|keyboard|screenSize|uiMode"
         android:name=".App"
         android:allowBackup="true"
+        android:configChanges="orientation|keyboardHidden|keyboard|screenSize|uiMode"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Automata">
-        <activity android:name=".OtherUserProfile"
-            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|uiMode"/>
-        <activity android:name=".resetPasswordActivity"
-            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|uiMode"/>
-        <activity android:name=".MainHomeActivity"/>
-        <activity android:name=".HomeActivity"
-            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|uiMode"/>
-        <activity android:name=".App"
-            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|uiMode"/>
-        <activity android:name=".LoginOrSignupActivity"
-            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|uiMode"/>
-        <activity android:name=".LoginActivity"
-            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|uiMode"/>
-        <activity android:name=".SignUpActivity"
-            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|uiMode"/>
-        <activity android:name=".MainActivity"
-            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|uiMode">
-            <meta-data android:name="com.parse.push.gcm_sender_id"
+        <activity android:name=".FollowingList"></activity>
+        <activity android:name=".FollowerList" />
+        <activity
+            android:name=".OtherUserProfile"
+            android:configChanges="keyboardHidden|keyboard|screenSize|uiMode"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".resetPasswordActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|uiMode"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MainHomeActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|uiMode"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".HomeActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|uiMode"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".App"
+            android:configChanges="keyboardHidden|keyboard|screenSize|uiMode"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".LoginOrSignupActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|uiMode"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".LoginActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|uiMode"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".SignUpActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|uiMode"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|uiMode"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="com.parse.push.gcm_sender_id"
                 android:value="id:424389414587" />
-
             <meta-data
                 android:name="com.parse.SERVER_URL"
                 android:value="@string/back4app_server_url" />
@@ -62,14 +83,15 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <service
-            android:name="com.parse.fcm.ParseFirebaseMessagingService">
+        <service android:name="com.parse.fcm.ParseFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <receiver android:name="com.parse.ParsePushBroadcastReceiver" android:exported="false">
+        <receiver
+            android:name="com.parse.ParsePushBroadcastReceiver"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
                 <action android:name="com.parse.push.intent.OPEN" />

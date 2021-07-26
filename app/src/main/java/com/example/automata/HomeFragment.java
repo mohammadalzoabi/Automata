@@ -1,5 +1,6 @@
 package com.example.automata;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -12,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -42,17 +42,9 @@ import java.util.List;
 
 public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            getChildFragmentManager().beginTransaction().detach(this).attach(this).commit();
-        }
-    }
 
     SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
-    SearchView searchView;
     RecycleAdapter recycleAdapter;
 
 
@@ -70,6 +62,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
 
 
+    @SuppressLint("SimpleDateFormat")
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
@@ -148,11 +141,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
                         @Override
                         public void onTextChanged(CharSequence s, int start, int before, int count) {
-                            if(s.length()>0){
-                                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
-                            } else {
-                                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-                            }
+                            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(s.length() > 0);
                         }
 
                         @Override
@@ -166,19 +155,6 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
 
             });
-
-
-            List<Object> list = ParseUser.getCurrentUser().getList("isFollowing");
-            if (!list.contains(ParseUser.getCurrentUser().getUsername())) {
-                ParseUser user2 = ParseUser.getCurrentUser();
-                user2.add("isFollowing", ParseUser.getCurrentUser().getUsername());
-                user2.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-
-                    }
-                });
-            }
         }
 
 
@@ -198,6 +174,19 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         swipeRefreshLayout.setRefreshing(true);
 
         if (ParseUser.getCurrentUser() != null) {
+
+            List<Object> list = ParseUser.getCurrentUser().getList("isFollowing");
+            if (!list.contains(ParseUser.getCurrentUser().getUsername())) {
+                ParseUser user2 = ParseUser.getCurrentUser();
+                user2.add("isFollowing", ParseUser.getCurrentUser().getUsername());
+                user2.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+
+                    }
+                });
+            }
+
             usernames = new ArrayList<>();
             memos = new ArrayList<>();
             createdAt = new ArrayList<>();

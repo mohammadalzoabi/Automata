@@ -29,6 +29,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
@@ -48,9 +49,14 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 
 
 
-public class ProfileFragment extends Fragment{
+public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     int followersNum;
+    int followingNum;
+    SwipeRefreshLayout swipeRefreshLayout;
+    TextView followersNumTextView;
+    TextView followingNumTextView;
+    public TextView profileUsername;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
@@ -145,8 +151,9 @@ public class ProfileFragment extends Fragment{
                 startActivityForResult(intent, 2);
             }
         }
-
     }
+
+
 
     @Nullable
     @org.jetbrains.annotations.Nullable
@@ -155,7 +162,25 @@ public class ProfileFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
 
-        TextView profileUsername = view.findViewById(R.id.profileUsername);
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefresh2);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeResources(R.color.red,
+                R.color.black,
+                R.color.black,
+                R.color.black);
+
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+                refreshActivity();
+            }
+        });
+
+
+
+
+        profileUsername = view.findViewById(R.id.profileUsername);
         profileUsername.setText(ParseUser.getCurrentUser().getUsername());
 
         ImageView profilePicture = view.findViewById(R.id.imageView2);
@@ -169,13 +194,15 @@ public class ProfileFragment extends Fragment{
             }
         });}
 
-        TextView followingNumTextView = view.findViewById(R.id.followingNumberTextView);
-        List<Object> followingList = ParseUser.getCurrentUser().getList("isFollowing");
+        followingNumTextView = view.findViewById(R.id.followingNumberTextView);
+        followersNumTextView = view.findViewById(R.id.followersNumberTextView);
+        /*List<Object> followingList = ParseUser.getCurrentUser().getList("isFollowing");
         String followingString;
-        followingString = String.valueOf(followingList.size()-1);
+        followingNum = followingList.size()-1;
+        //followingString = String.valueOf(followingList.size()-1);
 
 
-        TextView followersNumTextView = view.findViewById(R.id.followersNumberTextView);
+        followersNumTextView = view.findViewById(R.id.followersNumberTextView);
         ParseQuery<ParseUser> query = ParseUser.getQuery();
         query.whereNotEqualTo("username", ParseUser.getCurrentUser().getUsername());
         query.findInBackground(new FindCallback<ParseUser>() {
@@ -187,9 +214,28 @@ public class ProfileFragment extends Fragment{
                             followersNum++;
                         }
                         followersNumTextView.setText(String.valueOf(followersNum));
-                        followingNumTextView.setText(followingString);
+                        followingNumTextView.setText(String.valueOf(followingNum));
                     }
                 }
+            }
+        });*/
+
+
+        followersNumTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), FollowerList.class);
+                intent.putExtra("username", profileUsername.getText().toString());
+                startActivity(intent);
+            }
+        });
+
+        followingNumTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), FollowingList.class);
+                intent.putExtra("username", profileUsername.getText().toString());
+                startActivity(intent);
             }
         });
 
@@ -333,5 +379,41 @@ public class ProfileFragment extends Fragment{
 
 
         return view;
+    }
+
+    @Override
+    public void onRefresh() {
+        refreshActivity();
+    }
+
+    private void refreshActivity(){
+        swipeRefreshLayout.setRefreshing(true);
+
+        followersNum = 0;
+        followingNum = 0;
+
+        List<Object> followingList = ParseUser.getCurrentUser().getList("isFollowing");
+
+
+        ParseQuery<ParseUser> query = ParseUser.getQuery();
+        query.whereNotEqualTo("username", ParseUser.getCurrentUser().getUsername());
+        query.findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> objects, ParseException e) {
+                if(e == null && objects.size() > 0){
+                    for(ParseUser user : objects) {
+                        if (user.getList("isFollowing").contains(ParseUser.getCurrentUser().getUsername())) {
+                            followersNum++;
+                        }
+                        followersNumTextView.setText(String.valueOf(followersNum));
+                        if(followingList.size() <= 1){
+                            followingNumTextView.setText("0");
+                        } else{
+                        followingNumTextView.setText(String.valueOf(followingList.size()-1));}
+                    }
+                }
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 }

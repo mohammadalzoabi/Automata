@@ -87,7 +87,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             user.signUpInBackground(e -> {
                 if (e == null) {
                     ParseUser.logOut();
-                    showAlert("Account Created Successfully!", "Please verify your email before Login", false);
+                    showAlert("Account Created Successfully!", "\n" +"Please verify your email before Login", false);
                 } else {
                     ParseUser.logOut();
                     showAlert("Account Creation Failed", "\n" + e.getMessage(), true);

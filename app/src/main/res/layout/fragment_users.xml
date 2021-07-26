@@ -10,13 +10,13 @@
         android:id="@+id/swipeRefresh2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="72dp">
+        android:layout_marginTop="62dp">
 
         <ListView
             android:id="@+id/usersListView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="84dp"
+            android:layout_marginTop="62dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,66 +27,70 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-    <Button
-        android:id="@+id/addButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="#00FFFFFF"
-        android:backgroundTint="#00FFFFFF"
-        android:fontFamily="@font/roboto"
-        android:text="Follow"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:icon="@drawable/ic_add"
-        app:iconGravity="textTop"
-        app:layout_constraintBottom_toTopOf="@+id/usersListView"
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardBackgroundColor="?android:attr/colorAccent"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/swipeRefresh2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/viewButton"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/viewButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="#00FFFFFF"
-        android:backgroundTint="#00FFFFFF"
-        android:fontFamily="@font/roboto"
-        android:text="View Profile"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:icon="@drawable/ic_search"
-        app:iconGravity="textTop"
-        app:layout_constraintBottom_toTopOf="@+id/usersListView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/unfollowButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="#00FFFFFF"
-        android:backgroundTint="#00FFFFFF"
-        android:fontFamily="@font/roboto"
-        android:text="Unfollow"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:icon="@drawable/ic_remove"
-        app:iconGravity="textTop"
-        app:layout_constraintBottom_toTopOf="@+id/usersListView"
-        app:layout_constraintEnd_toStartOf="@+id/viewButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="64dp"
+            android:layout_gravity="center|right"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="#00FFFFFF"
+            android:backgroundTint="#00FFFFFF"
+            android:fontFamily="@font/roboto"
+            android:text="Follow"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:icon="@drawable/ic_add_2"
+            app:iconGravity="textTop"
+            app:iconSize="20sp" />
+
+        <Button
+            android:id="@+id/unfollowButton"
+            android:layout_width="wrap_content"
+            android:layout_height="64dp"
+            android:layout_gravity="center|left"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="#00FFFFFF"
+            android:backgroundTint="#00FFFFFF"
+            android:fontFamily="@font/roboto"
+            android:text="Unfollow"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:icon="@drawable/ic_remove_2"
+            app:iconGravity="textTop"
+            app:iconSize="20sp" />
+
+        <Button
+            android:id="@+id/viewButton"
+            android:layout_width="wrap_content"
+            android:layout_height="64dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="#00FFFFFF"
+            android:backgroundTint="#00FFFFFF"
+            android:fontFamily="@font/roboto"
+            android:text="View Profile"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:icon="@drawable/ic_search"
+            app:iconGravity="textTop"
+            app:iconSize="20sp" />
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

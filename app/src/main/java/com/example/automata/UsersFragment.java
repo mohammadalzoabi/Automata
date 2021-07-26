@@ -3,6 +3,7 @@ package com.example.automata;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,7 +72,7 @@ public class UsersFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
 
         usersListView = view.findViewById(R.id.usersListView);
-        users = new ArrayList<String>();
+        users = new ArrayList<>();
         arrayAdapter = new ArrayAdapter(getActivity(), R.layout.newlistview, users);
         usersListView.setAdapter(arrayAdapter);
 
@@ -86,14 +87,34 @@ public class UsersFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setTitle("Enter The Username");
                     EditText viewUser = new EditText(getActivity());
+                    viewUser.setMaxLines(1);
+                    viewUser.setInputType(InputType.TYPE_CLASS_TEXT);
                     builder.setView(viewUser);
 
                     builder.setPositiveButton("View", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(getActivity(), OtherUserProfile.class);
-                            intent.putExtra("username", viewUser.getText().toString());
-                            startActivity(intent);
+                            ParseQuery<ParseUser> query = ParseUser.getQuery();
+                            query.whereEqualTo("username", viewUser.getText().toString());
+                            query.findInBackground(new FindCallback<ParseUser>() {
+                                @Override
+                                public void done(List<ParseUser> objects, ParseException e) {
+                                    if (e == null) {
+                                        int i = 0;
+                                        for(ParseUser user : objects){
+                                            i++;
+                                            if(user.getUsername().equals(viewUser.getText().toString())){
+                                                i--;
+                                                Intent intent = new Intent(getActivity(), OtherUserProfile.class);
+                                                intent.putExtra("username", viewUser.getText().toString());
+                                                startActivity(intent);
+                                            break;}
+                                    }
+                                    if(i==objects.size()){
+                                        Toast.makeText(getActivity(), "User Doesn't Exist", Toast.LENGTH_SHORT).show();}
+                                    }
+                                }
+                            });
                         }
                     });
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -115,6 +136,8 @@ public class UsersFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setTitle("Enter The Username");
                     EditText addUser = new EditText(getActivity());
+                    addUser.setMaxLines(1);
+                    addUser.setInputType(InputType.TYPE_CLASS_TEXT);
                     builder.setView(addUser);
 
                     builder.setPositiveButton("Follow", new DialogInterface.OnClickListener() {
@@ -180,6 +203,8 @@ public class UsersFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setTitle("Enter The Username");
                     EditText removeUser = new EditText(getActivity());
+                    removeUser.setMaxLines(1);
+                    removeUser.setInputType(InputType.TYPE_CLASS_TEXT);
                     builder.setView(removeUser);
 
                     builder.setPositiveButton("Unfollow", new DialogInterface.OnClickListener() {
@@ -187,7 +212,6 @@ public class UsersFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                         public void onClick(DialogInterface dialog, int which) {
                             List<String> temp;
                             temp = ParseUser.getCurrentUser().getList("isFollowing");
-
                             String unfollow = removeUser.getText().toString();
                             ParseQuery<ParseUser> query = ParseUser.getQuery();
                             query.whereEqualTo("username", unfollow);
@@ -255,7 +279,15 @@ public class UsersFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         arrayAdapter.notifyDataSetChanged();
         if (ParseUser.getCurrentUser() != null) {
             usersListView.setAdapter(arrayAdapter);
-            usersListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            usersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(getActivity(), OtherUserProfile.class);
+                    intent.putExtra("username", users.get(position));
+                    startActivity(intent);
+                }
+            });
+            /*usersListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(getActivity(), OtherUserProfile.class);
@@ -263,7 +295,7 @@ public class UsersFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                     startActivity(intent);
                     return false;
                 }
-            });
+            });*/
 
 
             ParseQuery<ParseUser> query = ParseUser.getQuery();
